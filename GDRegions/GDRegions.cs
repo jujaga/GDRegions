@@ -90,6 +90,26 @@ namespace GDRegions
                 endY = reader.ReadInt16();
             }
 
+            if (endX < startX)
+            {
+                var oldEndx = endX;
+                endX = startX;
+                startX = oldEndx;
+            }
+
+            if (endY < startY)
+            {
+                var oldEndy = endY;
+                endY = startY;
+                startY = oldEndy;
+            }
+
+            if (endX == startX || endY == startY)
+            {
+                plr.SendErrorMessage("Invalid region selection. Try again or use '/setregion cancel' to cancel.");
+                return;
+            }
+
             TShock.Regions.AddRegion(startX, startY, (endX - startX), (endY - startY), rname, plr.User.Name, Main.worldID.ToString());
             plr.SendSuccessMessage("Set region " + rname);
             plr.SetData<bool>("awaitGD", false);
