@@ -1,20 +1,20 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
 using Terraria;
 using TerrariaApi.Server;
 using TShockAPI;
-using TShockAPI.DB;
 
 namespace GDRegions
 {
-    [ApiVersion(1, 23)]
+    [ApiVersion(1, 25)]
     public class GDRegions : TerrariaPlugin
     {
         #region PluginInfo
         public override string Name { get { return "GDRegions"; } }
         public override string Author { get { return "Zaicon"; } }
         public override string Description { get { return "Region management using The Grand Design."; } }
-        public override Version Version { get { return new Version(1, 0, 0, 0); } }
+        public override Version Version { get { return Assembly.GetExecutingAssembly().GetName().Version; } }
 
         public GDRegions(Main game)
             : base(game)
