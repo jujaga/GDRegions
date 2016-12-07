@@ -7,7 +7,7 @@ using TShockAPI;
 
 namespace GDRegions
 {
-    [ApiVersion(1, 25)]
+    [ApiVersion(1, 26)]
     public class GDRegions : TerrariaPlugin
     {
         #region PluginInfo
@@ -26,30 +26,30 @@ namespace GDRegions
         #region Init/Dispose
         public override void Initialize()
         {
-            ServerApi.Hooks.GameInitialize.Register(this, onInitialize);
-            ServerApi.Hooks.NetGreetPlayer.Register(this, onGreet);
-            ServerApi.Hooks.NetGetData.Register(this, onGetData);
+            ServerApi.Hooks.GameInitialize.Register(this, OnInitialize);
+            ServerApi.Hooks.NetGreetPlayer.Register(this, OnGreet);
+            ServerApi.Hooks.NetGetData.Register(this, OnGetData);
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                ServerApi.Hooks.GameInitialize.Deregister(this, onInitialize);
-                ServerApi.Hooks.NetGreetPlayer.Deregister(this, onGreet);
-                ServerApi.Hooks.NetGetData.Deregister(this, onGetData);
+                ServerApi.Hooks.GameInitialize.Deregister(this, OnInitialize);
+                ServerApi.Hooks.NetGreetPlayer.Deregister(this, OnGreet);
+                ServerApi.Hooks.NetGetData.Deregister(this, OnGetData);
             }
             base.Dispose(disposing);
         }
         #endregion
 
         #region Hooks
-        private void onInitialize(EventArgs args)
+        private void OnInitialize(EventArgs args)
         {
             Commands.ChatCommands.Add(new Command("tshock.admin.region", GDRegion, "setregion"));
         }
 
-        private void onGreet(GreetPlayerEventArgs args)
+        private void OnGreet(GreetPlayerEventArgs args)
         {
             var plr = TShock.Players[args.Who];
 
@@ -59,7 +59,7 @@ namespace GDRegions
             plr.SetData<bool>("awaitGD", false);
         }
 
-        private void onGetData(GetDataEventArgs args)
+        private void OnGetData(GetDataEventArgs args)
         {
             if (args.MsgID != PacketTypes.MassWireOperation)
                 return;
